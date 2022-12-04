@@ -13,7 +13,12 @@ def lis(a):
 
 s = 0
 for l in a:
-    srt = sorted(l)
-    if lis((srt[0], srt[-1])) in (lis(l[:2]), lis(l[2:])):
+    l[:2] = sorted(l[:2])
+    l[2:] = sorted(l[2:])
+    if l[0] > l[2]:
+        l = [l[2], l[3], l[0], l[1]]
+
+    if l[0] <= l[3] and l[1] >= l[2]:
         s += 1
+
 print(s)
