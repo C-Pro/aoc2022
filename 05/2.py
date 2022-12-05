@@ -35,7 +35,11 @@ for line in lines:
         cnt = int(rule[0])
         f = int(rule[1])-1
         t = int(rule[2])-1
+        d = deque([])
         for _ in range(cnt):
-            stacks[t].append(stacks[f].pop())
+            d.append(stacks[f].pop())
+        for _ in range(cnt):
+            stacks[t].append(d.pop())
+
 
 print("".join([stacks[i].pop() for i in range(len(stacks))]))
