@@ -1,5 +1,8 @@
 with open("input.txt", "rt") as fi:
-    lines=fi.read().splitlines()
-    a = [int(l) for l in lines]
+    s = fi.read()
 
-print(a)
+for i in range(len(s)-3):
+    if len(set(list(s[i:i+4]))) == 4:
+        print(s[i:i+4])
+        print(i+4)
+        break
