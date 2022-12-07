@@ -38,20 +38,23 @@ for line in lines:
         else:
             sizes[key] += i[0]
 
-if "/" not in sizes.keys():
-    sizes["/"] = 0
-for (k, v) in list(sizes.items()):
+sizes2 = {}
+for (k, v) in sizes.items():
     if k == "/":
         continue
     k = ["/" if s == "" else s for s in k.split("/")]
-    while len(k) > 1:
-        k.pop()
+    while len(k) > 0:
         key = "/".join(k)
         if key.startswith("//"):
             key = key[1:]
-        if key not in sizes.keys():
-            sizes[key] = v
+        if key not in sizes2.keys():
+            sizes2[key] = v
         else:
-            sizes[key] += v
+            sizes2[key] += v
+        k.pop()
 
-print(sum([v for (k, v) in sizes.items() if v <= 100000]))
+need = 30000000 - (70000000 - sizes2["/"])
+for size in sorted(sizes2.values()):
+    if size >= need:
+        print(size)
+        break
