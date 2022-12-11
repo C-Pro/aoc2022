@@ -15,6 +15,7 @@ def op(val, s):
     return eval(s)
 
 
+ddiv = 1
 with open("input.txt", "rt") as fi:
     parts = fi.read().split("\n\n")
     for part in parts:
@@ -29,19 +30,23 @@ with open("input.txt", "rt") as fi:
             "cnt": 0,
         }
         monkeys.append(monkey)
+        ddiv *= getints(lines[3])[0]
 
-for i in range(20):
+for i in range(10000):
     for monkey in monkeys:
         while len(monkey["items"]) > 0:
             monkey["cnt"] += 1
             item = monkey["items"].popleft()
             item = op(item, monkey["operation"])
-            item = item//3
+            item = item % ddiv
 
             if item % monkey["div"] == 0:
                 monkeys[monkey["true"]]["items"].append(item)
             else:
                 monkeys[monkey["false"]]["items"].append(item)
+
+    # for n, monkey in enumerate(monkeys):
+    #     print(f"Monkey {n} inspected {monkey['cnt']} items")
 
 monkeys.sort(key=lambda x: -x["cnt"])
 print(monkeys[0]["cnt"] * monkeys[1]["cnt"])
