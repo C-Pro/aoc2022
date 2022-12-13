@@ -9,12 +9,15 @@ def getints(line):
 msgs = []
 
 with open("input.txt", "rt") as fi:
-    groups = fi.read().split("\n\n")
-    for group in groups:
-        g = []
-        for line in group.splitlines():
-            g.append(eval(line))
-        msgs.append(g)
+    lines = fi.read().splitlines()
+    for line in lines:
+        if line.strip() == "":
+            continue
+        msgs.append(eval(line))
+
+
+msgs.append([[2]])
+msgs.append([[6]])
 
 
 def right(m1, m2):
@@ -32,15 +35,17 @@ def right(m1, m2):
             if r is None:
                 continue
             return r
-        if len(m2) < len(m1):
+        if len(m1) < len(m2):
+            return True
+        if len(m1) > len(m2):
             return False
-        return True
+        return None
+
 
 s = 0
-for i, msg in enumerate(msgs):
-    #print(i, right(msg[0], msg[1]))
-    if right(msg[0], msg[1]):
-        s += i+1
+for i in range(len(msgs)-1):
+    for j in range(i+1, len(msgs)):
+        if right(msgs[i], msgs[j]) == False:
+            msgs[i], msgs[j] = msgs[j], msgs[i]
 
-
-print(s)
+print((msgs.index([[2]])+1) * (msgs.index([[6]])+1))
