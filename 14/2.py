@@ -44,6 +44,7 @@ with open("input.txt", "rt") as fi:
         pp = None
         for p in [getints(x) for x in pts]:
             if pp is not None:
+
                 if pp[0] != p[0]:
                     for x in range(min(pp[0], p[0]), max(pp[0], p[0])+1):
                         m[(x, p[1])] = "#"
@@ -63,6 +64,9 @@ def free(m, p):
 def drop(m):
     grain = (500, 0)
     while True:
+        if grain[1] > maxY:
+            m[grain] = "@"
+            return True
         if free(m, (grain[0], grain[1]+1)):
             grain = (grain[0], grain[1]+1)
         elif free(m, (grain[0]-1, grain[1]+1)):
@@ -71,15 +75,13 @@ def drop(m):
             grain = (grain[0]+1, grain[1]+1)
         else:
             m[grain] = "@"
-            # draw(m)
+            if grain == (500, 0):
+                return False
             return True
-
-        if grain[1] > maxY:
-            return False
 
 
 cnt = 0
 while drop(m):
     cnt += 1
 
-print(cnt)
+print(cnt+1)
