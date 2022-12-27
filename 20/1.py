@@ -52,6 +52,8 @@ def pr(head):
 
 b = pr(head)
 
+print(sum([x.val for x in b]))
+
 for v in b:
     if v.val == 0:
         continue
@@ -90,6 +92,7 @@ for v in b:
 
 b = [x.val for x in pr(head)]
 
+print(sum(b))
 
 n = len(b)
 z = b.index(0)

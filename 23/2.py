@@ -33,7 +33,7 @@ def draw():
     print("-"*(ec-sc+3))
 
 
-#draw()
+# draw()
 
 
 moves = [((-1, 0), [(-1, -1), (-1, 0), (-1, 1)]),
@@ -55,7 +55,7 @@ def lone(c):
     return True
 
 
-for i in range(10):
+for i in range(123490812390481290384903):
     props = {}
     for c, v in m.items():
         if lone(c):
@@ -78,11 +78,16 @@ for i in range(10):
                 props[cn] = prop
                 break
             j = (j + 1) % 4
+    moved = False
     for c, p in props.items():
         if p[1] == 0:
+            moved = True
             del (m[p[0]])
             m[c] = "#"
-    #draw()
+    if not moved:
+        print(i+1)
+        exit()
+    # draw()
 
 (sr, er, sc, ec) = mm()
 total = (er-sr+1) * (ec - sc+1)
