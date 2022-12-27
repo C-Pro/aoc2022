@@ -1,13 +1,23 @@
 import re
 from collections import deque
 
+digits = {"2": 2, "1": 1, "0": 0, "-": -1, "=": -2}
 
-def getints(line):
-    return [int(s) for s in re.findall("[0-9]+", line)]
+def fs(line):
+    return sum([digits[c]*(5**i) for i,c in enumerate(reversed(line))])
+
+def ts(num):
+    s = []
+    while num > 0:
+        s.append(num % 5)
+
+assert (fs("1=-0-2") == 1747)
+assert (fs("12111") == 906)
+assert (fs("21") == 11)
 
 
-with open("input.txt", "rt") as fi:
+with open("test.txt", "rt") as fi:
     lines = fi.read().splitlines()
-    a = [getints(l) for l in lines]
 
-print(a)
+s = sum([fs(line) for line in lines])
+print(s)
