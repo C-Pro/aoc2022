@@ -94,9 +94,10 @@ def getWays(c, m):
     return ways
 
 
-def dfs(c, maps):
+def dfs(S, E, step, maps):
     v = set()
-    q = deque([(c, 0)])
+    c = S
+    q = deque([(c, step)])
     while len(q) > 0:
         c, step = q.pop()
         if (c, step) in v:
@@ -104,8 +105,8 @@ def dfs(c, maps):
         v.add((c, step))
         # print(step, c)
         # draw(maps[step], c)
-        if c == (H-2, W-2):
-            print(step+1)
+        if c == E:
+            return (step+1)
             exit()
 
         if len(maps) < step + 2:
@@ -115,4 +116,7 @@ def dfs(c, maps):
             q.appendleft((w, step+1))
 
 
-dfs(START, maps)
+s1 = dfs(START, (H-2, W-2), 0, maps)
+s2 = dfs(END, (1, 1), s1, maps)
+s3 = dfs(START, (H-2, W-2), s2, maps)
+print(s3)
